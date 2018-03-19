@@ -15,26 +15,22 @@
 # https://www.youtube.com/watch?v=FmsLJHikRf8
 # bin/phantomjs --help ***besically you can tell the browser what to do 
 ########
-import urllib2
-import json
+import re
+import collections
+import pandas as pd
 
-webpage_api = 'A.57c0ecce925470118d73687951af28ee'
-result/180316_5B_2a0dc3b30a18c3ed09cf48e701686b6f/
-result/180316_MH_e01f18306efafe6a9fe8ba9e93a4dcbb/
 
-try:
-	url = 'http://www.webpagetest.org/'
-	req  = urllib2.Request(url)
-	resp = urllib2.urlopen(req)
-	respData = resp.read()
-
-	saveFile = open("result.txt", 'w')
-	saveFile.write(str(respData))
-	saveFile.close()
-
-	
-
-except Exception as e:
-	print str(e)
+with open('words2.json') as infile:
+	contents = infile.read()
+	data = contents.replace('%20', ' ')
+	info = data.replace(';','\n')
+	info1 = info.replace('%3A','')
+	print info1
+'''
+	contents = infile.read()
+	for x in range(100):
+		data = contents.split('%20')
+		print data
+'''
 
 

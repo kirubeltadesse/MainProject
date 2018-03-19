@@ -1,5 +1,6 @@
 var WebPageTest = require('webpagetest')
 var fs = require('fs');
+const querystring = require('querystring');
 var wpt = new WebPageTest('https://www.webpagetest.org/','A.57c0ecce925470118d73687951af28ee')
 
 /* // reading from a file
@@ -49,11 +50,30 @@ wpt.runTest('https://css-tricks.com',{
 
 	console.log('Waterfall view:', result.data.runs[1].firstView.images.waterfall)
 
+	var q_data = querystring.stringify({
+	'Load time:': result.data.average.firstView.loadTime,
+	'First byte:': result.data.average.firstView.TTFB,
+	'Start render:': result.data.average.firstView.render,
+	'Speed Index:': result.data.average.firstView.SpeedIndex,
+	'DOM elements:': result.data.average.firstView.domElements,
+	'(Doc complete) Requests:': result.data.average.firstView.requestsDoc,
+	'(Doc complete) Byets in:': result.data.average.firstView.bytesInDoc,
+	'(Fully loaded) Time:': result.data.average.firstView.fullyLoaded,
+	'(Fully loaded) Requests:': result.data.average.firstView.requestsFull,
+	'(Fully loaded) Bytes in:': result.data.average.firstView.bytesIn,
+	},';', ':');
+
+
 	// custome Metrics values
 	//console.log('Iframes:', result.data.average.firstView.iframes)
 	//console.log('Ads:', result.data.average.firstView.ad)
-	var data = JSON.stringify(result, null, 2)
-	fs.writeFile('words2.json', data, response);
+/*	bfinal = Buffer.concat([b1, b2, b3,b4,b5,b6,b7,b8,b9,b10]);
+	var json = bfinal.toJSON(bfinal);
+	console.log("The Buffer: ", bfinal)
+	console.log("The Json: ", json)
+*/
+	//var data = JSON.stringify(q_data, null, 2)
+	fs.writeFile('words2.json', q_data, response);
 
 	function response(err){
 		console.log('saving response');
@@ -64,6 +84,7 @@ wpt.runTest('https://css-tricks.com',{
 wpt.getTestStatus('180317_YS_ccecf2bcdde379e930fd2b0f3c6d625d'
 , function processTestStatus(err, result){
 	console.log(err || result)
+
 	var data = JSON.stringify(result, null, 2)
 	fs.writeFile('words.json', data, finished);
 
@@ -71,7 +92,7 @@ wpt.getTestStatus('180317_YS_ccecf2bcdde379e930fd2b0f3c6d625d'
 		console.log('File save');
 	}
 })
-/
+
 /*****************************************
 Try to figure out how to feed multiple 
 web addresses to the script at once from a 
