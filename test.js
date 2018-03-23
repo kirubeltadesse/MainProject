@@ -3,14 +3,12 @@ var fs = require('fs');
 const querystring = require('querystring');
 var wpt = new WebPageTest('https://www.webpagetest.org/','A.57c0ecce925470118d73687951af28ee')
 
-/* // reading from a file
-var data = fs.readFileSync('words.json');
-var words = JSON.parse(data);
+// reading from a file
+var data = fs.readFileSync('univ_college.json')
+var Unv_web = JSON.parse(data);
 
 //to see what is being read
-console.log(data);
-
-*/
+console.log(Unv_web);
 
 /*
 // Creating a customMetrics
@@ -23,7 +21,7 @@ var customMetrics = [
 	]
 */
 
-
+/*
 wpt.runTest('https://css-tricks.com',{
 	connectivity: 'cable',                //specifing connection
 	location: 'Dulles:Chrome',			  // location	
@@ -73,6 +71,7 @@ wpt.runTest('https://css-tricks.com',{
 	console.log("The Json: ", json)
 */
 	//var data = JSON.stringify(q_data, null, 2)
+/*
 	fs.writeFile('words2.json', q_data, response);
 
 	function response(err){
@@ -92,7 +91,7 @@ wpt.getTestStatus('180317_YS_ccecf2bcdde379e930fd2b0f3c6d625d'
 		console.log('File save');
 	}
 })
-
+*/
 /*****************************************
 Try to figure out how to feed multiple 
 web addresses to the script at once from a 

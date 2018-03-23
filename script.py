@@ -8,16 +8,13 @@
 #			Use yslow or 
 ################################################################################
 
-
-
 ########
 # usefull tutorial on 
 # https://www.youtube.com/watch?v=FmsLJHikRf8
 # bin/phantomjs --help ***besically you can tell the browser what to do 
 ########
-import re
-import collections
 import pandas as pd
+import numpy as np
 
 
 with open('words2.json') as infile:
@@ -32,5 +29,14 @@ with open('words2.json') as infile:
 		data = contents.split('%20')
 		print data
 '''
+def univ_list():
 
+	df = pd.read_excel('univ_college_websites.xlsx', sheet_name="Sheet1")
+	df2 = df.set_index('School Name')
+	mylist = np.array(df2['URL'])
+	unvi_web = pd.DataFrame(data=mylist[:100])
+	unvi_web.to_json('univ_college.json')
 
+	#return unvi_web
+
+univ_list()
