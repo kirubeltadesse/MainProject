@@ -20,14 +20,18 @@ import numpy as np
 with open('words2.json') as infile:
 	contents = infile.read()
 	data = contents.replace('%20', ' ')
+	data = data.replace('%2F%2F','://')
 	info = data.replace(';','\n')
+	info = info.replace('%3D%3D%3D%3D','\n')
 	info1 = info.replace('%3A','')
 	print info1
+
 '''
 	contents = infile.read()
 	for x in range(100):
 		data = contents.split('%20')
 		print data
+'''
 '''
 def univ_list():
 
@@ -40,3 +44,4 @@ def univ_list():
 	#return unvi_web
 
 univ_list()
+'''
