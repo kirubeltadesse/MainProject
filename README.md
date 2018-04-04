@@ -3,7 +3,7 @@ Kirubel Tadesse
 This repository uses nodejs to collect different information about a given web site.
 
 ### Collected web address
-- the web addressed that are being tested are lested on the `univ\_college.csv` 
+- the web addressed that are being tested are lested on the `univ_college.csv` 
 
 ### Testing Script
 - `webtest_analysis.js` is a nodejs program that test each web address using the [webpagetest](https://webpagetest.org) and periodically check when the result is avaliable. This program uses my private API for testing the web addresses.
@@ -29,8 +29,12 @@ This repository uses nodejs to collect different information about a given web s
 			// console.log("inside",data_id)
 		}
 ```
+
 - Since the test result for a single website return a huge amount of information in the next function we select the neccessory parameters out of the result and save the ressult to a file. 
 - when the result are ready the program will write(append) it to a file called `test_result.txt`. 
+
+### Result Analysis 
+
 
 
 

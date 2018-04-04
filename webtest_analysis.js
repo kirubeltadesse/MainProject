@@ -28,7 +28,7 @@ fs.readFile('univ_college.csv', 'utf8', function (err, data){
 data_id = []
 function processweb_add() {
 	// going throught a list of web address
-	for (var i = 0; i <w_addes.length ; i++) {
+	for (var i = 0; i < 10; i++) { // w_addes.length  
 		// console.log("this is :", i, w_addes[i]);
 
 		/*
@@ -64,7 +64,7 @@ function processweb_add() {
 }
 
 function check_status(){
-	console.log(data_id.length)
+	// console.log(data_id.length)
 	for(var i=0; i < data_id.length; i++){ 
 		// using the data.testId of the website this checks on the status of the test
 		wpt.getTestStatus(data_id[i], function processTestStatus(err, result) {
@@ -75,7 +75,7 @@ function check_status(){
 		// using the data.testId of the website we get the test resutl
 		wpt.getTestResults(data_id[i], function processTestResult(err, result) {
 			// console.log(err || result)
-			// console.log('web adder: ', result.data.url)
+			// console.log('web address: ', result.data.url)
 
 
 			//console.log(err || result) //this will return the specific testId etc...
@@ -96,7 +96,7 @@ function check_status(){
 
 			console.log('Waterfall view:', result.data.runs[1].firstView.images.waterfall)
 			var q_data = querystring.stringify({
-			'web adder:': result.data.url,
+			'web address:': result.data.url,
 			'Load time:': result.data.average.firstView.loadTime,
 			'First byte:': result.data.average.firstView.TTFB,
 			'Start render:': result.data.average.firstView.render,
@@ -118,21 +118,12 @@ function check_status(){
 
 			//var data = JSON.stringify(q_data, null, 2)
 			// fs.writeFile('words2.json', q_data, response);
-			fs.appendFile('test_result.txt', querystring.decode(q_data), response);
+			fs.appendFile('test_result.txt', q_data, response);
 			console.log(q_data)
 
 			function response(err){
 				console.log('saving response');
 			}
-		
-
-			/*   
-			var Get_data = JSON.stringify(result, null, 2)
-			fs.writeFile('words.json', Get_data, finished);
-
-			function finished(err){
-				console.log('File save');
-			}*/
 
 		})
 	}
