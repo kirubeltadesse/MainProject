@@ -47,4 +47,4 @@ test = analysis(1)
 
 value =  test.prepare('data.csv')
 df = pd.DataFrame(data=value)
-print df.head(10)
+print df.head()
