@@ -34,7 +34,7 @@ This repository uses nodejs to collect different information about a given web s
 - when the result are ready the program will write(append) it to a file called `test_result.txt`. 
 
 ### Result Analysis 
-
+- the python script `Analysis.py` include the Analysis create currently under progress
 
 
 
