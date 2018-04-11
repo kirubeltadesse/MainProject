@@ -28,7 +28,7 @@ fs.readFile('univ_college.csv', 'utf8', function (err, data){
 data_id = []
 function processweb_add() {
 	// going throught a list of web address
-	for (var i = 0; i < 10; i++) { // w_addes.length  
+	for (var i = 0; i < 50; i++) { // w_addes.length  
 		// console.log("this is :", i, w_addes[i]);
 
 		/*
@@ -43,8 +43,8 @@ function processweb_add() {
 		*/
 
 		wpt.runTest(w_addes[i], {
-			connectivity: 'cable',                //specifing connection
-			location: 'Dulles:Chrome',			  // location	
+			connectivity: '4G',                // 'cable' or '4G' (9 Mbps 170ms RTT) specifing connection
+			location: 'Dulles:iOS',			  // 'Chrome' or IOS location	
 			firstViewOnly: false,
 			runs: 1,
 			pollResults: 5,
@@ -118,7 +118,7 @@ function check_status(){
 
 			//var data = JSON.stringify(q_data, null, 2)
 			// fs.writeFile('words2.json', q_data, response);
-			fs.appendFile('test_result.txt', q_data, response);
+			fs.appendFile('Iphone_iOS_11_test_result.txt', q_data, response);
 			console.log(q_data)
 
 			function response(err){

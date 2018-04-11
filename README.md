@@ -59,6 +59,31 @@ This repository uses nodejs to collect different information about a given web s
 - when the result are ready the program will write(append) it to a file called `test_result.txt`or `data.csv` here. 
 
 ### Result Analysis 
+- Runned different test at different time and the result seems to stay consistant
+- Runned for the Iphone6s\_iOS11 from the same location 
+```
+		wpt.runTest(w_addes[i], {
+			connectivity: '4G',                // 'cable' or '4G' (9 Mbps 170ms RTT) specifing connection
+			location: 'Dulles:iOS',			  // 'Chrome' or IOS 	
+			firstViewOnly: false,
+			runs: 1,
+			pollResults: 5,
+			video: true
+		}, function processTeststatus(err, result) { 
+			console.log(err || result)
+	//		console.log('Data id: ', result.data.id)
+
+			//collecting all the test_ids
+			data_id.push(result.data.id)
+
+			// check result status
+			check_status();
+			// console.log("inside",data_id)
+		})
+   }	
+```
+- unfortunity there were **35** test waiting online which mean my test was on pending stage for a vary long time.
+
 - the python script `Analysis.py` include the Analysis of the result. Organize the data into 14 column and various row based on the data size.
 
 
