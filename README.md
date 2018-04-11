@@ -89,7 +89,7 @@ This repository uses nodejs to collect different information about a given web s
 
 
 
-### Some of the Challenging 
+### Some of the Challengings
 
 1. Installing Nodejs with NPM
 2. Writing the `webtest_analysis.js` 
@@ -99,7 +99,7 @@ This repository uses nodejs to collect different information about a given web s
 	- parseing the result to different parameter that came used for evaluation
 	- JavaScript is not that stright forward to write to a file sorting the result was a bit of a challenge
 	
-3. preparing the data for pandas dataframe was kind of problem.
+3. During Analysis preparing the data for pandas dataframe was kind of problem.
 
 
 
