@@ -89,7 +89,17 @@ This repository uses nodejs to collect different information about a given web s
 
 
 
+### Some of the Challenging 
 
+1. Installing Nodejs with NPM
+2. Writing the `webtest_analysis.js` 
+	- Webpagetest AIP
+		- understanding how to use it and the policies and limitation
+	- passing the web address and waiting for the test result since the test result takes take my script was returning undefined result
+	- parseing the result to different parameter that came used for evaluation
+	- JavaScript is not that stright forward to write to a file sorting the result was a bit of a challenge
+	
+3. preparing the data for pandas dataframe was kind of problem.
 
 
 
