@@ -43,8 +43,8 @@ function processweb_add() {
 		*/
 
 		wpt.runTest(w_addes[i], {
-			connectivity: '4G',                // 'cable' or '4G' (9 Mbps 170ms RTT) specifing connection
-			location: 'Dulles:iOS',			  // 'Chrome' or IOS location	
+			connectivity: 'cable',             // 'cable' or '4G' (9 Mbps 170ms RTT) specifing connection
+			location: 'Dulles:Chrome',		  // 'Chrome' or IOS location	
 			firstViewOnly: false,
 			runs: 1,
 			pollResults: 5,

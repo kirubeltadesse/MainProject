@@ -19,9 +19,8 @@ class analysis():
 			# f = open("data.txt","a+")
 			# f.write(info1 +"\n")
 			# f.close()
-
 			self.prepare(info1)
-	
+
 	# change to list with in a dictionary 
 	def prepare(self, file_name, from_file=False):
 		collection = []
@@ -36,31 +35,20 @@ class analysis():
 
 		# convert the data into one hot list
 		line = content.split('\n')
-
 		for each in line:
-
 			values = each.split(':')
 			# print values, len(values)
-
 			if len(values) == 3:
-
 				key, value_1, value_2 = values
 				value = value_1+":"+ value_2
-
 				if key == 'web address':
 					catagory = value
-
 			elif len(values) == 2:
 				key, value = values
-			
 			else:                   
 			#	if count_num_data %100 == 0:
 			#	print key, value, len(value)
 				pass
-
-				'''
-				# add time variable
-				'''
 				if key == 'Waterfall view':
 					pattern = r'[0-9][0-9]'
 					if re.search(pattern, value):
@@ -72,18 +60,18 @@ class analysis():
 						key = 'date'
 					count_num_data += 1 
 
-			'''
-			if value == '':
-				print "True"
-			'''
 			
 			data[catagory].setdefault(key,[]).append(value)
 			
 		cleaned_dict =  dict(data)
 		for web in cleaned_dict.keys():
+			#replace empty value with np.nan
 			del cleaned_dict[web]['Waterfall view']
 			del cleaned_dict[web]['web address']
-
+			for x in cleaned_dict[web].keys():
+				if '' in cleaned_dict[web][x]:
+					for y in cleaned_dict[web][x]:
+						cleaned_dict[web][x] = np.nan
 			if cleaned_dict[web].has_key(''):
 				del cleaned_dict[web]['']
 			else:
@@ -103,16 +91,30 @@ class analysis():
 		
 test = analysis(1)
 value =  test.prepare('data.csv', True)
-test.clean_up('test_result.txt')
+#test.clean_up('test_result.txt')
+
+'''
+df2 = pd.DataFrame.from_dict({(i,j):value[i][j]
+							for i in value.keys()
+							for j in value[i].keys()},
+							orient = 'index')
+'''
 
 df = pd.DataFrame(data=value)
-#print df.columns
-print df.head(5)
+dfT = df.transpose()
 
-#print df.columns([u'date', u'web address'])
-# print df.set_index('date')
-#print df.sort([u'date', u'web address', u'(Doc complete) Byets in', u'(Doc complete) Requests', u'(Fully loaded) Bytes in', u'(Fully loaded) Requests', u'(Fully loaded) Time', u'DOM elements', u'First byte', u'Load time', u'Speed Index', u'Start render'])
-#print df.index([u'web address'])
+# conver to frame
+df_2 =pd.DataFrame(data=dfT[u'Speed Index']).dropna()
+s = df_2.apply(lambda x: pd.Series(x[u'Speed Index']), axis = 1).transpose().max()
+print s
 
-# Index([u'', u'(Doc complete) Byets in', u'(Doc complete) Requests', u'(Fully loaded) Bytes in', u'(Fully loaded) Requests', u'(Fully loaded) Time', u'DOM elements', u'First byte', u'Load time', u'Speed Index', u'Start render', u'Waterfall view', u'date',u'web address', u'web addresshttp'], dtype='object')
+#print df[:1].describe()
+#df_replace = dfT[:5][u'Speed Index']
+#print dfT.describe()
+#print dfT[:][u'Speed Index'].mean()             
+
+
+
+
+
 
