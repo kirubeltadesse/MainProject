@@ -44,7 +44,7 @@ function processweb_add() {
 
 		wpt.runTest(w_addes[i], {
 			connectivity: 'cable',             // 'cable' or '4G' (9 Mbps 170ms RTT) specifing connection
-			location: 'Dulles:Chrome',		  // 'Chrome' or IOS location	
+			location: 'Italy:Chrome',		  // 'Chrome' or IOS location	
 			firstViewOnly: false,
 			runs: 1,
 			pollResults: 5,
@@ -74,7 +74,7 @@ function check_status(){
 
 		// using the data.testId of the website we get the test resutl
 		wpt.getTestResults(data_id[i], function processTestResult(err, result) {
-			// console.log(err || result)
+			 console.log(err || result)
 			// console.log('web address: ', result.data.url)
 
 
@@ -118,7 +118,7 @@ function check_status(){
 
 			//var data = JSON.stringify(q_data, null, 2)
 			// fs.writeFile('words2.json', q_data, response);
-			fs.appendFile('Iphone_iOS_11_test_result.txt', q_data, response);
+			fs.appendFile('Milan_Italy_test_result.txt', q_data, response);
 			console.log(q_data)
 
 			function response(err){

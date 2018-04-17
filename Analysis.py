@@ -79,7 +79,14 @@ class analysis():
 		
 		print "The number of data collected is: ", count_num_data
 		return cleaned_dict
+	
+	def select(self, dataframe, param):
+		dfT = dataframe.transpose() 
 
+		# conver to frame
+		df_2 = pd.DataFrame(data=dfT[param]).dropna()
+		s = df_2.apply(lambda x: pd.Series(x[param]), axis = 1).transpose().max()
+		return s	
 
 	# produce tabel, chart, and graph
 	def plot(self, dataframe):
@@ -101,12 +108,19 @@ df2 = pd.DataFrame.from_dict({(i,j):value[i][j]
 '''
 
 df = pd.DataFrame(data=value)
+New = test.select(df, u'Speed Index')
+data = test.select(df, u'date')
+
+
+print New.describe()
+print data.describe()
+
 dfT = df.transpose()
 
 # conver to frame
 df_2 =pd.DataFrame(data=dfT[u'Speed Index']).dropna()
 s = df_2.apply(lambda x: pd.Series(x[u'Speed Index']), axis = 1).transpose().max()
-print s
+# print s
 
 #print df[:1].describe()
 #df_replace = dfT[:5][u'Speed Index']
