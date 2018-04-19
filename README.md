@@ -58,7 +58,7 @@ This repository uses nodejs to collect different information about a given web s
 ```
 - when the result are ready the program will write(append) it to a file called `test_result.txt`or `data.csv` here. 
 
-### Result Analysis 
+### Results Analysis 
 - Runned different test at different time and the result seems to stay consistant
 - Runned for the Iphone6s\_iOS11 from the same location 
 ```
@@ -83,11 +83,15 @@ This repository uses nodejs to collect different information about a given web s
    }	
 ```
 - unfortunity there were **35** test waiting online which mean my test was on pending stage for a vary long time.
+- Runned the state from different location Milan, Italy and get a result.
 
 - the python script `Analysis.py` include the Analysis of the result. Organize the data into 14 column and various row based on the data size.
 
 
-
+### Analysis 
+- What is the different relationship between the different matrics?
+	- Proposed Methods
+		- Spearman Partial Ranking Correlation Coefficiant 
 
 ### Some of the Challengings
 

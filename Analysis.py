@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 import collections
+from mpldatacursor import datacursor
 
 class analysis():
 	def __init__(self, num_data):
