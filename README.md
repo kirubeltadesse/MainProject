@@ -33,7 +33,7 @@ This repository uses nodejs to collect different information about a given websi
 		}
 ```
 
-- Since the test result for a single website return a huge amount of information (display(markdown(\\approx))3MB of text data) in the next function I select the neccessory parameters out of the result and save the result to a file. 
+- Since the test result for a single website return a huge amount of information (markdown(\approx))3MB of text data) in the next function I select the neccessory parameters out of the result and save the result to a file. 
 
 - **Load Time:** The time between the initial request and the browser load event
 - **First Byte:** The time it takes for the server to respond with the first byte of the response (in other words, the time it takes for the back-end to load)
