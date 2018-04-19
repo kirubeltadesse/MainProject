@@ -2,13 +2,14 @@
 
 # This project is for Networking Class
 
-This repository uses nodejs to collect different information about a given web site.
+This repository uses nodejs to collect different information about a given website.
 
 ### Collected web address
-- the web addressed that are being tested are lested on the `univ_college.csv` 
+- the web addressed that are being tested are listed on the folder `Servers` which include a list of University and the top web pages address from Alexa. 
 
 ### Testing Script
-- `webtest_analysis.js` is a nodejs program that test each web address using the [webpagetest](https://webpagetest.org) and periodically check when the result is avaliable. This program uses my private API for testing the web addresses.
+- `webtest_analysis.js` is a nodejs program that test each web address using the [webpagetest](https://webpagetest.org) and periodically check when the result is avaliable. This program uses *my private API* for testing the web addresses. The API address allows me to make 200 test per day!
+
 - There are different specification we make for our testing avaliable resourse are listed [here](https://webpagetest.org/getLocations.php)
 
 ```
@@ -32,7 +33,7 @@ This repository uses nodejs to collect different information about a given web s
 		}
 ```
 
-- Since the test result for a single website return a huge amount of information in the next function I select the neccessory parameters out of the result and save the ressult to a file. 
+- Since the test result for a single website return a huge amount of information (display(markdown(\\approx))3MB of text data) in the next function I select the neccessory parameters out of the result and save the result to a file. 
 
 - **Load Time:** The time between the initial request and the browser load event
 - **First Byte:** The time it takes for the server to respond with the first byte of the response (in other words, the time it takes for the back-end to load)
