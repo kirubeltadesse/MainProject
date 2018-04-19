@@ -1,4 +1,6 @@
-Kirubel Tadesse
+##### Author: Kirubel Tadesse
+
+# This project is for Networking Class
 
 This repository uses nodejs to collect different information about a given web site.
 
@@ -58,7 +60,7 @@ This repository uses nodejs to collect different information about a given web s
 ```
 - when the result are ready the program will write(append) it to a file called `test_result.txt`or `data.csv` here. 
 
-### Results Analysis 
+### Data Collections 
 - Runned different test at different time and the result seems to stay consistant
 - Runned for the Iphone6s\_iOS11 from the same location 
 ```
@@ -104,6 +106,10 @@ This repository uses nodejs to collect different information about a given web s
 	- JavaScript is not that stright forward to write to a file sorting the result was a bit of a challenge
 	
 3. During Analysis preparing the data for pandas dataframe was kind of problem.
+
+
+### Results 
+- The test was performed several time both on the same list of servers. And the difference in those paramater in different time is the same. In other words, the difference is negligible.
 
 
 

@@ -8,7 +8,7 @@ var wpt = new WebPageTest("https://www.webpagetest.org/","A.57c0ecce925470118d73
 w_addes = []
 
 // reading from a file
-fs.readFile('univ_college.csv', 'utf8', function (err, data){
+fs.readFile('Servers/univ_college.csv', 'utf8', function (err, data){
 	if (err){
 		throw err;
 		}
@@ -118,7 +118,7 @@ function check_status(){
 
 			//var data = JSON.stringify(q_data, null, 2)
 			// fs.writeFile('words2.json', q_data, response);
-			fs.appendFile('Milan_Italy_test_result.txt', q_data, response);
+			fs.appendFile('Test_result/Milan_Italy_test_result.txt', q_data, response);
 			console.log(q_data)
 
 			function response(err){

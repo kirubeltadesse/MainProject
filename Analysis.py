@@ -113,8 +113,16 @@ New = test.select(df, u'Speed Index')
 data = test.select(df, u'date')
 
 
-print New.describe()
-print data.describe()
+
+'''
+website_list = pd.read_html("https://en.wikipedia.org/wiki/List_of_most_popular_websites")
+for each in website_list:
+	web_address = pd.DataFrame(data=each[1], index=each[1])
+'''
+
+
+#print New.describe()
+#print data.describe()
 
 dfT = df.transpose()
 
