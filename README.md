@@ -5,7 +5,7 @@
 This repository uses nodejs to collect different information about a given website.
 
 ### Collected web address
-- the web addressed that are being tested are listed on the folder `Servers` which include a list of University and the top web pages address from Alexa. 
+- the web addressed that are being tested are listed on the folder `Servers` which include a list of Universities and the top web pages address from Alexa. 
 
 ### Testing Script
 - `webtest_analysis.js` is a nodejs program that test each web address using the [webpagetest](https://webpagetest.org) and periodically check when the result is avaliable. This program uses *my private API* for testing the web addresses. The API address allows me to make 200 test per day!
