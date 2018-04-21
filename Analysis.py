@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 import collections
+import matplotlib.pyplot as plt
 from mpldatacursor import datacursor
 
 class analysis():
@@ -16,11 +17,18 @@ class analysis():
 			data = data.replace('%2F%2F','://')
 			info = data.replace(';','\n')
 			info = info.replace('%3D%3D%3D%3D','\n')
+			info = info.replace('png','\n')
 			info1 = info.replace('%3A','')
-			# f = open("data.txt","a+")
-			# f.write(info1 +"\n")
-			# f.close()
-			self.prepare(info1)
+			#f = open("Nata.txt","a+")
+			#f.write(info1 +"\n")
+			#f.close()
+		return info1
+
+	'''
+	website_list = pd.read_html("https://en.wikipedia.org/wiki/List_of_most_popular_websites")
+	for each in website_list:
+		web_address = pd.DataFrame(data=each[1], index=each[1])
+	'''
 
 	# change to list with in a dictionary 
 	def prepare(self, file_name, from_file=False):
@@ -33,12 +41,12 @@ class analysis():
 				content = l_file.read()
 		else:
 			content = file_name
+		
+		line = content.split('\n')
 
 		# convert the data into one hot list
-		line = content.split('\n')
 		for each in line:
 			values = each.split(':')
-			# print values, len(values)
 			if len(values) == 3:
 				key, value_1, value_2 = values
 				value = value_1+":"+ value_2
@@ -46,10 +54,12 @@ class analysis():
 					catagory = value
 			elif len(values) == 2:
 				key, value = values
+
 			else:                   
 			#	if count_num_data %100 == 0:
 			#	print key, value, len(value)
 				pass
+
 				if key == 'Waterfall view':
 					pattern = r'[0-9][0-9]'
 					if re.search(pattern, value):
@@ -59,9 +69,8 @@ class analysis():
 						
 						value = time.replace('18','2018').replace('[', '').replace(']','').replace(',','-')
 						key = 'date'
-					count_num_data += 1 
+					count_num_data += 1
 
-			
 			data[catagory].setdefault(key,[]).append(value)
 			
 		cleaned_dict =  dict(data)
@@ -79,62 +88,85 @@ class analysis():
 				pass
 		
 		print "The number of data collected is: ", count_num_data
+
 		return cleaned_dict
 	
 	def select(self, dataframe, param):
 		dfT = dataframe.transpose() 
-
 		# conver to frame
-		df_2 = pd.DataFrame(data=dfT[param]).dropna()
+		df_2 = pd.DataFrame(data=dfT[param]).dropna() #, columns=['webaddress',param]).dropna()
 		s = df_2.apply(lambda x: pd.Series(x[param]), axis = 1).transpose().max()
-		return s	
+		s.name = param
+ 		# conver serias to DataFrame
+		#df = pd.DataFrame(data=s ) #columns=['webaddress', param])
+		df = df_2.drop(param, axis=1).join(s)
+
+		return df	
 
 	# produce tabel, chart, and graph
-	def plot(self, dataframe):
-		return dataframe.plot()
+	def plot(self, dataframe, param, param2, color='red', label ='no', ax = None):
+		df = self.select(dataframe, param) 
+		df2 = self.select(dataframe, param2) 
+		comb_df = df.join(df2)
+		if label == 'no':
+			comb_df.plot.scatter(x=param, y=param2, color=color) 
+			datacursor(hover=True, point_labels=comb_df.index)
+			plt.show()
+
+			# getting the summary
+			print df.describe() 
+			print df2.describe()
+			print comb_df
+			#return dataframe.plot()
+		else:
+			if ax == None:
+				return comb_df.plot.scatter(x=param, y=param2, color=color, label=label) 
+			else:
+				comb_df.plot.scatter(x=param, y=param2, color=color, label=label, ax = ax) 
+				datacursor(hover=True, point_labels=comb_df.index)
+				plt.show()
+
 	
 	def prop(self, dataframe):
 		return dataframe.columns
 	
 		
 test = analysis(1)
-value =  test.prepare('data.csv', True)
-#test.clean_up('test_result.txt')
 
+# import from a the cleaned data
+#value =  test.prepare('Nata.txt', True)
+#print value 
+
+# import row file 
+usa = test.clean_up('./Test_results/test_result.txt')
+Italy = test.clean_up('./Test_results/Milan_Italy_test_result.txt')
+USA_v = test.prepare(usa)
+Italy_v = test.prepare(Italy)
+
+###############################################################################
+# u'(Doc complete) Byets in', u'(Doc complete) Requests',
+# u'(Fully loaded) Bytes in', u'(Fully loaded) Requests',
+# u'(Fully loaded) Time', u'DOM elements', u'First byte', u'Load time',
+# u'Speed Index', u'Start render', u'date'],
+###############################################################################
 '''
 df2 = pd.DataFrame.from_dict({(i,j):value[i][j]
 							for i in value.keys()
 							for j in value[i].keys()},
 							orient = 'index')
 '''
+df_u = pd.DataFrame(data=USA_v)
+df_i = pd.DataFrame(data=Italy_v)
 
-df = pd.DataFrame(data=value)
-New = test.select(df, u'Speed Index')
-data = test.select(df, u'date')
+test.plot(df_u, u'Speed Index', u'Load time')
 
+# print df
+#dat = test.plot(df_u, u'Speed Index', u'Load time',color='DarkBlue', label="USA")
+#test.plot(df_i, u'Speed Index', u'Load time',color='Blue',label="Italy", ax=dat)
 
-
-'''
-website_list = pd.read_html("https://en.wikipedia.org/wiki/List_of_most_popular_websites")
-for each in website_list:
-	web_address = pd.DataFrame(data=each[1], index=each[1])
-'''
+#New = test.select(df, u'Speed Index')
 
 
-#print New.describe()
-#print data.describe()
-
-dfT = df.transpose()
-
-# conver to frame
-df_2 =pd.DataFrame(data=dfT[u'Speed Index']).dropna()
-s = df_2.apply(lambda x: pd.Series(x[u'Speed Index']), axis = 1).transpose().max()
-# print s
-
-#print df[:1].describe()
-#df_replace = dfT[:5][u'Speed Index']
-#print dfT.describe()
-#print dfT[:][u'Speed Index'].mean()             
 
 
 
