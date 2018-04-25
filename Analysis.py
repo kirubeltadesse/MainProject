@@ -1,3 +1,4 @@
+import statsmodels.api as sm
 import pandas as pd
 import numpy as np
 import re
@@ -108,23 +109,29 @@ class analysis():
 		df = self.select(dataframe, param) 
 		df2 = self.select(dataframe, param2) 
 		comb_df = df.join(df2)
+		
 		if label == 'no':
-			comb_df.plot.scatter(x=param, y=param2, color=color) 
+			comb_df.plot.scatter(x=param, y=param2, color=color,title=param+' Vs '+param2) 
 			datacursor(hover=True, point_labels=comb_df.index)
-			plt.show()
 
 			# getting the summary
 			print df.describe() 
 			print df2.describe()
 			print comb_df
+			plt.show()
 			#return dataframe.plot()
 		else:
 			if ax == None:
 				return comb_df.plot.scatter(x=param, y=param2, color=color, label=label) 
 			else:
-				comb_df.plot.scatter(x=param, y=param2, color=color, label=label, ax = ax) 
+				comb_df.plot.scatter(x=param, y=param2, color=color, label=label, ax = ax, title=param+' Vs '+param2) 
 				datacursor(hover=True, point_labels=comb_df.index)
+				# getting the summary
+				print df.describe() 
+				print df2.describe()
+				print comb_df
 				plt.show()
+			
 
 	
 	def prop(self, dataframe):
@@ -140,6 +147,8 @@ test = analysis(1)
 # import row file 
 usa = test.clean_up('./Test_results/test_result.txt')
 Italy = test.clean_up('./Test_results/Milan_Italy_test_result.txt')
+alexa = test.clean_up('./Test_results/alexa_test_result.txt')
+
 USA_v = test.prepare(usa)
 Italy_v = test.prepare(Italy)
 
@@ -158,18 +167,35 @@ df2 = pd.DataFrame.from_dict({(i,j):value[i][j]
 df_u = pd.DataFrame(data=USA_v)
 df_i = pd.DataFrame(data=Italy_v)
 
-test.plot(df_u, u'Speed Index', u'Load time')
+#test.plot(df_u, u'Speed Index', u'Load time')
 
-# print df
-#dat = test.plot(df_u, u'Speed Index', u'Load time',color='DarkBlue', label="USA")
-#test.plot(df_i, u'Speed Index', u'Load time',color='Blue',label="Italy", ax=dat)
+dat = test.plot(df_u, u'Speed Index', u'Load time',color='lightBlue', label="USA")
+test.plot(df_i, u'Speed Index', u'Load time',color='DarkBlue',label="Italy", ax=dat)
 
-#New = test.select(df, u'Speed Index')
+# linear regression 
+p1 = test.select(df_u, u'Speed Index')
+p2 = test.select(df_u, u'Load time')
+p3 = test.select(df_u, u'Start render')
+p4 = test.select(df_u, u'DOM elements')
 
+X = p1.join(p2).join(p3).join(p4)
+y = test.select(df_u, u'First byte')
 
+model = sm.OLS(y, X).fit()
+predictions = model.predict(X)
+print model.summary()
+plt.title( "Ordinary Least Squares")	
+plt.xlabel("Web addresses")
+plt.ylabel('First byte')
+plt.plot(predictions, 'bo',markersize=9, label='predictions')
+plt.plot(y, 'ko',markersize=6, label='TARGET') 
 
+Y = -0.7179*p1 + 0.5839*p2 +0.7944*p3 +-1.3634*p4
 
+plt.plot(y, '--')
 
-
+datacursor(hover=True, point_labels=predictions.index)
+plt.legend()
+plt.show()
 
 
